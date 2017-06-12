@@ -26,17 +26,21 @@ S[0] = {A[0], A[5], A[6], A[2]} = {5, 6, 2, 0}
 
 
 class Solution(object):
-    def twoSum(self, nums, target):
+    def arrayNesting(self, nums):
         """
         :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
+        :rtype: int
         """
-        if len(nums) <= 1:
-            return false;
-        buff_dict = {}
-        for i in range(len(nums)):
-            if nums[i] in buff_dict:
-                return [buff_dict[nums[i]], i]
-            else:
-                buff_dict[target - nums[i]] = i
+        def search(idx):
+            cnt = 0
+            while nums[idx] >= 0:
+                cnt += 1
+                next = nums[idx]
+                nums[idx] = -1
+                idx = next
+            return cnt
+        ans = 0
+        for x in range(len(nums)):
+            if nums[x] >= 0:
+                ans = max(ans, search(x))
+        return ans
